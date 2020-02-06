@@ -21,8 +21,11 @@
 # Requirements:
 # -------------
 #
-#                imagesnap   | download it from https://github.com/rharder/imagesnap, compile and put somewhere in the PATH           
-#                imagemagick | brew install ImageMagick
+#                imagesnap   |	download it from https://github.com/rharder/imagesnap, compile and put somewhere in the PATH           
+#													or
+#								https://github.com/FleXoft/imagesnap for macOS Catalina support
+#
+#                imagemagick | 	brew install ImageMagick
 #
 #
 # Documentation:
@@ -133,7 +136,7 @@ while true; do
 			echo -n "3, "
 			convert -geometry x360 -border 10x13 -bordercolor \#000000 "$screenshotFilename2" "$screenshotFilename2"
 			echo -n "4)"
-			convert +append "$screenshotFilename1" "$screenshotFilename2" "$iSightFilename" "$pwd/$filename"\_final.jpg
+			convert +append "$iSightFilename" "$screenshotFilename1" "$screenshotFilename2" "$pwd/$filename"\_final.jpg
 
 			# and delete the temporary files
 			rm "$iSightFilename" "$screenshotFilename1" "$screenshotFilename2"
