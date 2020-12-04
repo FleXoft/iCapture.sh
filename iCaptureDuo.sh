@@ -132,7 +132,7 @@ while true; do
 			echo -n ", manipulating (1, "
 			convert -geometry x360 -border 10x13 -bordercolor \#000000 "$iSightFilename" "$iSightFilename"
 			echo -n "2, "
-			convert -geometry x360 -border 10x13 -bordercolor \#000000 "$screenshotFilename1" "$screenshotFilename1"
+			convert -geometry x360 -border 3x13 -bordercolor \#000000 "$screenshotFilename1" "$screenshotFilename1"
 			echo -n "3, "
 			convert -geometry x360 -border 10x13 -bordercolor \#000000 "$screenshotFilename2" "$screenshotFilename2"
 			echo -n "4)"
