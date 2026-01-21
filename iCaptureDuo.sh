@@ -8,6 +8,9 @@
 #
 # Original idea came from: kkovacs  | http://www.kkovacs.hu/item/1426
 #
+# v1.03, 2026.01.21. Mohács, FleXoft
+#	Chg: convert to magick
+#
 # v1.02, 2018.05.23. Budapest, FleXoft
 #	Chg: codebrush and HD Ready ;-)
 #	Upd: old links
@@ -97,9 +100,7 @@ fi
 
 # main(); Loop forever...
 while true; do
-
 	if [ ! -f pause ]; then # Skip if "pause" file exists
-
     	# Print counter
     	filename=`printf "%06g" $fileCounter`
     	echo -n "[$filename]"
@@ -114,29 +115,23 @@ while true; do
 	   
 	    # Do it if at least $iSightFilename and one $screenshotFilename exist
 	    if [ -f $iSightFilename ] && [ -f $screenshotFilename1 ]; then
-  		
 	    	if [ ! -f "$screenshotFilename2" ]; then  
-	    	
 	    		echo -n "?)"
-	    		convert -size 1920x1080 xc:black "$screenshotFilename2"
-	    	
+	    		magick -size 1920x1080 xc:black "$screenshotFilename2"
 	    	else
-	    	
 	    		echo -n "3)"	
-	    	
 	    	fi
-
 			#
 			# Picture manipulations...
 			#
 			echo -n ", manipulating (1, "
-			convert -geometry x360 -border 10x13 -bordercolor \#000000 "$iSightFilename" "$iSightFilename"
+			magick "$iSightFilename" -geometry x360 -border 10x13 -bordercolor \#000000 "$iSightFilename"
 			echo -n "2, "
-			convert -geometry x360 -border 3x13 -bordercolor \#000000 "$screenshotFilename1" "$screenshotFilename1"
+			magick "$screenshotFilename1" -geometry x360 -border 3x13 -bordercolor \#000000 "$screenshotFilename1"
 			echo -n "3, "
-			convert -geometry x360 -border 10x13 -bordercolor \#000000 "$screenshotFilename2" "$screenshotFilename2"
+			magick "$screenshotFilename2" -geometry x360 -border 10x13 -bordercolor \#000000 "$screenshotFilename2"
 			echo -n "4)"
-			convert +append "$iSightFilename" "$screenshotFilename1" "$screenshotFilename2" "$pwd/$filename"\_final.jpg
+			magick "$iSightFilename" "$screenshotFilename1" "$screenshotFilename2" +append "$pwd/$filename"\_final.jpg
 
 			# and delete the temporary files
 			rm "$iSightFilename" "$screenshotFilename1" "$screenshotFilename2"
@@ -149,23 +144,15 @@ while true; do
 			# Save last number
 			#
 			echo $fileCounter > $lastNumberFilename
-
     	else
-    
       		echo -n "No screen???, ScreenSaver or Screen is disabled. Bzzz..."
-      
     	fi
-    
 	else
-  
     	echo -n "Skip toggle ON, pause file exists!!!"
-    
   	fi
-
 	#
 	# Wait a bit and do it again and again...
 	#
 	echo ", sleep..."
 	sleep $sleepTime
-
 done
